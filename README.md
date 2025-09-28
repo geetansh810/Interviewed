@@ -1,6 +1,6 @@
 <div align="center">
   <br />
-      <img src="https://github.com/geetansh810/Interviewed/blob/main/public/logo.jpeg" alt="Project Banner">
+      <img src="https://github.com/geetansh810/Interviewed/blob/main/public/fullLogo.jpeg" alt="Project Banner">
   <br />
   
   <!-- <div>
