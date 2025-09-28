@@ -1,0 +1,91 @@
+{
+  "name": "InterviewPrepWorkflow",
+  "entryNodeId": "start",
+  "nodes": [
+    {
+      "id": "start",
+      "type": "conversation",
+      "message": "Hello! Welcome to your mock interview. Let's get started.",
+      "nextNodeId": "ask_role"
+    },
+    {
+      "id": "ask_role",
+      "type": "conversation",
+      "message": "What job role are you preparing for?",
+      "variable": "role",
+      "nextNodeId": "ask_experience"
+    },
+    {
+      "id": "ask_experience",
+      "type": "conversation",
+      "message": "What is your experience level for this role?",
+      "variable": "experience",
+      "nextNodeId": "ask_tech"
+    },
+    {
+      "id": "ask_tech",
+      "type": "conversation",
+      "message": "Which technologies would you like to cover?",
+      "variable": "techstack",
+      "nextNodeId": "generate_questions"
+    },
+    {
+      "id": "generate_questions",
+      "type": "apiRequest",
+      "method": "POST",
+      "endpoint": "https://yourapp.com/api/generate-questions",
+      "body": {
+        "role": "{{role}}",
+        "experience": "{{experience}}",
+        "techstack": "{{techstack}}"
+      },
+      "saveResponseAs": "questions",
+      "nextNodeId": "ask_questions"
+    },
+    {
+      "id": "ask_questions",
+      "type": "loop",
+      "loopVariable": "questions",
+      "steps": [
+        {
+          "type": "conversation",
+          "message": "{{item}}"
+        },
+        {
+          "type": "conversation",
+          "message": "Please provide your response.",
+          "variable": "response_{{loop.index}}"
+        }
+      ],
+      "nextNodeId": "feedback"
+    },
+    {
+      "id": "feedback",
+      "type": "apiRequest",
+      "method": "POST",
+      "endpoint": "https://yourapp.com/api/generate-feedback",
+      "body": {
+        "responses": "{{responses}}"
+      },
+      "saveResponseAs": "feedback",
+      "nextNodeId": "end"
+    },
+    {
+      "id": "end",
+      "type": "conversation",
+      "message": "Interview complete! Here is your feedback: {{feedback}}"
+    }
+  ],
+  "model": {
+    "provider": "google",
+    "name": "gemini-1.5-pro"
+  },
+  "globals": [
+    {
+      "id": "escalate_support",
+      "type": "conversation",
+      "message": "Would you like to speak to a live agent?",
+      "action": "transfer"
+    }
+  ]
+}
