@@ -30,17 +30,17 @@ async function Home() {
             Practice real interview questions & get instant feedback
           </p>
 
-          <Button asChild className="btn-primary max-sm:w-full">
+          {/* <Button asChild className="btn-primary max-sm:w-full">
             <Link href="/interview">Start an Interview</Link>
-          </Button>
+          </Button> */}
         </div>
 
         <Image
-          src="/robot.png"
+          src="/robot.jpg"
           alt="robo-dude"
           width={400}
           height={400}
-          className="max-sm:hidden"
+          className="max-sm:hidden rounded-2xl"
         />
       </section>
 
